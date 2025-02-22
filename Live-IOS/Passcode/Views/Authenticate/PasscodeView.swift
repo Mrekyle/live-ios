@@ -35,7 +35,7 @@ struct PasscodeView: View {
                 
                 Spacer()
                 
-                NumberPadView(passcode: $vm.passcode)
+                NumberPadView(vm: vm, passcode: $vm.passcode)
                 
             }
         }

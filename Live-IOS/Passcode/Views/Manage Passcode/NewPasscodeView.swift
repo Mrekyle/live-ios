@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewPasscodeView: View {
     @StateObject var vm = PasscodeViewModel()
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -41,9 +42,24 @@ struct NewPasscodeView: View {
             Spacer()
             
             if !vm.showPasscodeConfirmation {
-                NumberPadView(passcode: $vm.passcode)
+                NumberPadView(vm: vm, passcode: $vm.passcode)
             } else {
-                NumberPadView(passcode: $vm.passcodeConfirmation)
+                NumberPadView(vm: vm, passcode: $vm.passcodeConfirmation)
+            }
+        }
+        .onAppear {
+           vm.dismissAction = dismiss
+       }
+        .onChange(of: vm.passcode) { _, _ in
+            vm.handlePasscodeEntry()
+        }
+        .onChange(of: vm.passcodeConfirmation) { _, _ in
+            if !vm.verifyPasscodeConfirmationLength(passcodeConfirmation: vm.passcodeConfirmation) {
+                vm.showPasscodeError = false
+            } else {
+                Task {
+                    vm.handleConfirmationPasscode()
+                }
             }
         }
     }

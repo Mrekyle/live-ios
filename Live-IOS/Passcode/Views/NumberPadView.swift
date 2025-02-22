@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct NumberPadView: View {
-    
-    @StateObject var vm = PasscodeViewModel()
+    @ObservedObject var vm: PasscodeViewModel
     @Binding var passcode: String
     
     private let columns: [GridItem] = [
@@ -22,7 +21,7 @@ struct NumberPadView: View {
         LazyVGrid(columns: columns) {
             ForEach(1...9, id: \.self) { index in
                 Button {
-                    vm.addValue(index)
+                    addValue(index)
                 } label: {
                     Text("\(index)")
                         .font(.title)
@@ -30,10 +29,10 @@ struct NumberPadView: View {
                         .padding(.vertical, 16)
                         .contentShape(.rect)
                 }
-                
             }
+            
             Button {
-                vm.removeValue()
+                removeValue()
             } label: {
                 Image(systemName: "delete.backward")
                     .font(.title)
@@ -41,8 +40,9 @@ struct NumberPadView: View {
                     .padding(.vertical, 16)
                     .contentShape(.rect)
             }
+            
             Button {
-                vm.addValue(0)
+                addValue(0)
             } label: {
                 Text("0")
                     .font(.title)
@@ -53,8 +53,22 @@ struct NumberPadView: View {
         }
         .foregroundStyle(.primary)
     }
+    
+    ///Handles adding values to the initial passcode
+    func addValue(_ value: Int) {
+        if passcode.count < 4 {
+            passcode += "\(value)"
+        }
+    }
+    
+    ///Handles adding values to the confirmation passcode
+    func removeValue() {
+        if !passcode.isEmpty {
+            passcode.removeLast()
+        }
+    }
 }
 
 #Preview {
-    NumberPadView(passcode: .constant("111"))
+    NumberPadView(vm: PasscodeViewModel(), passcode: .constant("111"))
 }

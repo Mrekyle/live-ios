@@ -22,6 +22,7 @@ struct Live_IOSApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environmentObject(NotificationManager())
                 .environmentObject(NavigationStateManager())
         }
     }
