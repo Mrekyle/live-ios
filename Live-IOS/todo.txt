@@ -1,0 +1,42 @@
+TODO:
+
+BUILD LARAVEL APP FOR MANAGEMENT
+
+Passcode
+    Fix not entering
+    Add management options to reset and reminder
+    Saving passcode
+    
+KeyChain
+    Import keychain manager
+    
+Notifications
+    Import notification manager
+    
+Authentication
+    Import faceid settings
+    Registration
+        Build registrationm form
+    Forgot password
+        Build forgot password
+        
+Settings
+    Settings Bundle
+    Settings page - Link to passcode
+    
+Dashboard
+    BUILD
+    
+Holiday
+    Show all holidays
+    Remaining days
+    Days taken
+    New request
+
+Sickness
+    Show sickness days taken
+    new request/sickness
+    
+Spare
+    Figure out what to do
+
